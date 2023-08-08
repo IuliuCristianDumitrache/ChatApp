@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Blix App</string>
+    <string name="no_internet_error">No Internet Connection</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="an_error_has_occured">An error has occurred, please try again</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_ok">Ok</string>
+    <string name="search">Search</string>
+    <string name="name_transition">name_transition</string>
+    <string name="image_transition">image_transition</string>
+    <string name="root_transition">root_transition</string>
+    <string name="description_transition">description_transition</string>
+    <string name="invalid_credentials">Email/Password must not be empty</string>
+    <string name="invalid_email">Invalid E-mail</string>
+</resources>
