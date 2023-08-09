@@ -79,7 +79,7 @@ class ChatViewModel @Inject constructor(
 
         val chatMessage = ChatMessage(
             id = UUID.randomUUID().toString(),
-            message = "Salut salut",
+            message = "Salut sunt $friendName",
             friendId = friendId,
             name = friendName,
             isSentByMe = false,

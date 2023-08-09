@@ -22,4 +22,8 @@ class ChatLocalDataSource @Inject constructor(
             dao.insert(model.mapToEntity())
         }
     }
+
+    fun getLastMessageByFriendId(id: String): ChatMessage? {
+        return dao.getLastMessageByFriendId(id)?.toModel()
+    }
 }

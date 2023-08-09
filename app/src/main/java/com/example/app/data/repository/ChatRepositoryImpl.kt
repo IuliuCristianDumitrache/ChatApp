@@ -17,4 +17,8 @@ class ChatRepositoryImpl @Inject constructor(
         chatLocalDataSource.insertMessage(message)
     }
 
+    override fun getLastMessageByFriendId(id: String): ChatMessage? {
+        return chatLocalDataSource.getLastMessageByFriendId(id)
+    }
+
 }

@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FriendModel(
     val id: String,
-    val name: String
+    val name: String,
+    var lastMessage: String? = null
 ): Parcelable {
     fun mapToEntity(): FriendEntity {
         return FriendEntity(

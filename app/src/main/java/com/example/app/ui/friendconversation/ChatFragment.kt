@@ -73,11 +73,15 @@ class ChatFragment : Fragment() {
         views?.recyclerView?.adapter = chatAdapter
     }
 
+    override fun onDestroy() {
+        viewModel.chatLiveData.postValue(null)
+        super.onDestroy()
+    }
+
     private fun observeLiveData() {
         viewModel.chatLiveData.observe(this) {
             chatAdapter.submitList(it)
             chatAdapter.notifyDataSetChanged()
-            views?.recyclerView?.scrollToPosition(it.size - 1)
         }
 
         viewModel.isFriendTyping.observe(this) {

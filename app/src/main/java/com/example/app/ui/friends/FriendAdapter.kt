@@ -46,7 +46,7 @@ class FriendAdapter(private val listener: OnModelItemListener?) :
                     payloadList.forEach { currentPayload ->
                         when (currentPayload) {
                             FriendDiffCallback.ChangePayload.NAME -> {
-                                item.name?.let { name -> holder.updateName(name) }
+                                item.name.let { name -> holder.updateName(name) }
                             }
                             FriendDiffCallback.ChangePayload.ALL -> {
                                 holder.bind(item, listener)

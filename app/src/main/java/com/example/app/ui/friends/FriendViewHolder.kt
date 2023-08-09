@@ -11,6 +11,7 @@ class FriendViewHolder(private val binding: FriendItemBinding) : RecyclerView.Vi
         ViewCompat.setTransitionName(binding.root, model.id)
 
         binding.tvName.text = model.name
+        binding.tvLastMessage.text = model.lastMessage
 
         binding.root.setOnClickListener {
             listener?.onFriendItemClicked(binding, model)
@@ -19,9 +20,5 @@ class FriendViewHolder(private val binding: FriendItemBinding) : RecyclerView.Vi
 
     fun updateName(name: String) {
         binding.tvName.text = name
-    }
-
-    fun updateDescription(description: String) {
-        binding.tvDescription.text = description
     }
 }

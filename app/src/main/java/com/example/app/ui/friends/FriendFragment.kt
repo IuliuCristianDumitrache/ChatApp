@@ -67,16 +67,15 @@ class FriendFragment : Fragment(), FriendAdapter.OnModelItemListener {
             ).show()
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            if (viewModel.friendList.value == null) {
-                viewModel.getModelsList()
-            }
-        }
-
         initSubscriber()
         initButtons()
         (requireActivity() as MainActivity).setSupportActionBar(views!!.toolbar)
         (requireActivity() as MainActivity).supportActionBar?.title = ""
+    }
+
+    override fun onResume() {
+        viewModel.getModelsList()
+        super.onResume()
     }
 
     private fun initButtons() {

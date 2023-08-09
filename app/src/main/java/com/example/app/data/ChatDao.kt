@@ -14,4 +14,7 @@ interface ChatDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(model: ChatEntity)
+
+    @Query("SELECT * FROM CHAT_MESSAGE_ENTITY WHERE FRIEND_ID = :id ORDER BY DATE DESC LIMIT 1")
+    fun getLastMessageByFriendId(id: String): ChatEntity?
 }
