@@ -1,12 +1,12 @@
-package com.example.app.ui.models
+package com.example.app.ui.friends
 
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.databinding.ListItemBinding
-import com.example.app.models.SomeModel
+import com.example.app.models.FriendModel
 
-class ModelViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(model: SomeModel, listener: ModelsAdapter.OnModelItemListener?) {
+class FriendViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(model: FriendModel, listener: FriendAdapter.OnModelItemListener?) {
         ViewCompat.setTransitionName(binding.tvName, "${model.id}${model.name}")
         ViewCompat.setTransitionName(binding.root, "${model.id}")
 

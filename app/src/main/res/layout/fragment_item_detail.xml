@@ -30,6 +30,7 @@
             android:layout_marginTop="@dimen/large"
             android:layout_marginBottom="@dimen/extra_small"
             android:scaleType="fitCenter"
+            android:background="@drawable/baseline_person_4_24"
             android:transitionName="@string/image_transition"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

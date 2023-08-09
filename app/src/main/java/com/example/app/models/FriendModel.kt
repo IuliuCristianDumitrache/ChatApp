@@ -1,16 +1,16 @@
 package com.example.app.models
 
 import android.os.Parcelable
-import com.example.app.data.ModelEntity
+import com.example.app.data.FriendEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SomeModel(
+data class FriendModel(
     val id: String?,
     val name: String?
 ): Parcelable {
-    fun mapToEntity(): ModelEntity {
-        return ModelEntity(
+    fun mapToEntity(): FriendEntity {
+        return FriendEntity(
             id = id ?: "",
             name = name ?: "",
         )

@@ -7,13 +7,13 @@ import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.app.data.AppDatabase
-import com.example.app.data.ModelDao
+import com.example.app.data.FriendDao
 import com.example.app.data.SessionManager
-import com.example.app.data.remotedatasource.ModelRemoteDataSource
+import com.example.app.data.remotedatasource.FriendRemoteDataSource
 import com.example.app.data.remotedatasource.LoginRemoteDataSource
-import com.example.app.data.remotedatasource.ModelLocalDataSource
+import com.example.app.data.remotedatasource.FriendLocalDataSource
 import com.example.app.data.repository.LoginRepositoryImpl
-import com.example.app.data.repository.ModelRepositoryImpl
+import com.example.app.data.repository.FriendRepositoryImpl
 import com.example.app.network.ApiFactory
 import com.example.app.network.ApiService
 import com.example.app.network.exceptions.NetworkExceptionHandler
@@ -44,7 +44,7 @@ object AppModule {
         .build()
 
     @Provides
-    fun provideModelDao(appDatabase: AppDatabase): ModelDao {
+    fun provideModelDao(appDatabase: AppDatabase): FriendDao {
         return appDatabase.modelDao()
     }
 
@@ -61,8 +61,8 @@ object AppModule {
     @Provides
     fun provideModelRemoteDataSource(
         apiService: ApiService
-    ): ModelRemoteDataSource {
-        return ModelRemoteDataSource(apiService)
+    ): FriendRemoteDataSource {
+        return FriendRemoteDataSource(apiService)
     }
 
     @Provides
@@ -74,9 +74,9 @@ object AppModule {
 
     @Provides
     fun provideModelLocalDataSource(
-        modelDao: ModelDao
-    ): ModelLocalDataSource {
-        return ModelLocalDataSource(modelDao)
+        friendDao: FriendDao
+    ): FriendLocalDataSource {
+        return FriendLocalDataSource(friendDao)
     }
 
     @Provides
@@ -85,8 +85,8 @@ object AppModule {
     }
 
     @Provides
-    fun provideModelRepository(modelRemoteDataSource: ModelRemoteDataSource, modelLocalDataSource: ModelLocalDataSource): ModelRepositoryImpl {
-        return ModelRepositoryImpl(modelRemoteDataSource, modelLocalDataSource)
+    fun provideModelRepository(friendRemoteDataSource: FriendRemoteDataSource, friendLocalDataSource: FriendLocalDataSource): FriendRepositoryImpl {
+        return FriendRepositoryImpl(friendRemoteDataSource, friendLocalDataSource)
     }
 
     @Provides

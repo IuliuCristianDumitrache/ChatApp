@@ -1,18 +1,18 @@
-package com.example.app.ui.models
+package com.example.app.ui.friends
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.app.models.SomeModel
+import com.example.app.models.FriendModel
 
-class ModelDiffCallback : DiffUtil.ItemCallback<SomeModel>() {
+class FriendDiffCallback : DiffUtil.ItemCallback<FriendModel>() {
 
     enum class ChangePayload {
         ALL, NAME
     }
 
-    override fun areItemsTheSame(oldItem: SomeModel, newItem: SomeModel): Boolean =
+    override fun areItemsTheSame(oldItem: FriendModel, newItem: FriendModel): Boolean =
         oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: SomeModel, newItem: SomeModel): Boolean {
+    override fun areContentsTheSame(oldItem: FriendModel, newItem: FriendModel): Boolean {
         return when {
             oldItem.id != newItem.id -> { false }
             oldItem.name != newItem.name -> { false }
@@ -20,7 +20,7 @@ class ModelDiffCallback : DiffUtil.ItemCallback<SomeModel>() {
         }
     }
 
-    override fun getChangePayload(oldItem: SomeModel, newItem: SomeModel): List<ChangePayload> {
+    override fun getChangePayload(oldItem: FriendModel, newItem: FriendModel): List<ChangePayload> {
         val changePayloadList = mutableListOf<ChangePayload>()
 
         val shouldRefreshOnlyName = oldItem.name != newItem.name

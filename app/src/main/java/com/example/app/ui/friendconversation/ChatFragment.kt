@@ -1,4 +1,4 @@
-package com.example.app.ui.modelsdetails
+package com.example.app.ui.friendconversation
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -13,11 +13,11 @@ import com.example.app.databinding.FragmentItemDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ModelDetailsFragment : Fragment() {
+class ChatFragment : Fragment() {
 
     private var views: FragmentItemDetailBinding? = null
 
-    private val args by navArgs<ModelDetailsFragmentArgs>()
+    private val args by navArgs<ChatFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

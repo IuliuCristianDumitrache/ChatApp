@@ -4,12 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [(ModelEntity::class)],
+    entities = [(FriendEntity::class)],
     version = 1,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun modelDao(): ModelDao
+    abstract fun modelDao(): FriendDao
 
     companion object {
         //Migrations

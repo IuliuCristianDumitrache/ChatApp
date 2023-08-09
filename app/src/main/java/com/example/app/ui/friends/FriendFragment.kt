@@ -1,4 +1,4 @@
-package com.example.app.ui.models
+package com.example.app.ui.friends
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ import com.example.app.databinding.ListItemBinding
 import com.example.app.extensions.disposeIfNotAlready
 import com.example.app.extensions.navigateSafely
 import com.example.app.extensions.observe
-import com.example.app.models.SomeModel
+import com.example.app.models.FriendModel
 import com.example.app.network.RxBus
 import com.example.app.network.rxmessages.ReloadList
 import com.example.app.ui.MainActivity
@@ -27,11 +27,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.disposables.Disposable
 
 @AndroidEntryPoint
-class ModelsFragment : Fragment(), ModelsAdapter.OnModelItemListener {
+class FriendFragment : Fragment(), FriendAdapter.OnModelItemListener {
 
-    private val viewModel: ModelViewModel by viewModels()
+    private val viewModel: FriendViewModel by viewModels()
     private var views: FragmentListBinding? = null
-    private val modelsAdapter = ModelsAdapter(this)
+    private val friendAdapter = FriendAdapter(this)
     private lateinit var searchView: SearchView
 
     private var reloadSubscriber: Disposable? = null
@@ -50,8 +50,8 @@ class ModelsFragment : Fragment(), ModelsAdapter.OnModelItemListener {
 
         initRecyclerView()
 
-        observe(viewModel.modelList) { listOfCats ->
-            modelsAdapter.submitList(listOfCats)
+        observe(viewModel.friendList) { listOfCats ->
+            friendAdapter.submitList(listOfCats)
         }
 
         observe(viewModel.showProgress) { showProgress ->
@@ -66,15 +66,21 @@ class ModelsFragment : Fragment(), ModelsAdapter.OnModelItemListener {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            if (viewModel.modelList.value == null) {
+            if (viewModel.friendList.value == null) {
                 viewModel.getModelsList()
             }
         }
 
         initSubscriber()
-        setHasOptionsMenu(true)
+        initButtons()
         (requireActivity() as MainActivity).setSupportActionBar(views!!.toolbar)
         (requireActivity() as MainActivity).supportActionBar?.title = ""
+    }
+
+    private fun initButtons() {
+        views?.btnAddFriend?.setOnClickListener {
+            viewModel.addFriend(views?.etFriendName?.text.toString())
+        }
     }
 
     private fun initSubscriber() {
@@ -88,7 +94,7 @@ class ModelsFragment : Fragment(), ModelsAdapter.OnModelItemListener {
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(context)
         views?.rvModels?.layoutManager = linearLayoutManager
-        views?.rvModels?.adapter = modelsAdapter
+        views?.rvModels?.adapter = friendAdapter
     }
 
     override fun onDestroy() {
@@ -96,13 +102,13 @@ class ModelsFragment : Fragment(), ModelsAdapter.OnModelItemListener {
         super.onDestroy()
     }
 
-    override fun onModelItemClicked(binding: ListItemBinding, model: SomeModel) {
+    override fun onModelItemClicked(binding: ListItemBinding, model: FriendModel) {
         val extras = FragmentNavigatorExtras(
             binding.tvName to getString(R.string.name_transition),
             binding.root to getString(R.string.root_transition)
         )
 
-        val modelDirection = ModelsFragmentDirections.actionModelsFragmentToModelsDetailFragment(
+        val modelDirection = FriendFragmentDirections.actionModelsFragmentToModelsDetailFragment(
             model = model
         )
         findNavController().navigateSafely(

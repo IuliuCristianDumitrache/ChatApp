@@ -15,4 +15,5 @@
     <string name="description_transition">description_transition</string>
     <string name="invalid_credentials">Email/Password must not be empty</string>
     <string name="invalid_email">Invalid E-mail</string>
+    <string name="start_a_new_conversation_with_a_friend">Enter friend name</string>
 </resources>

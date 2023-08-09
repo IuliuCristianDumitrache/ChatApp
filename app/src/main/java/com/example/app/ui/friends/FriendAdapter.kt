@@ -1,14 +1,14 @@
-package com.example.app.ui.models
+package com.example.app.ui.friends
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.databinding.ListItemBinding
-import com.example.app.models.SomeModel
+import com.example.app.models.FriendModel
 
-class ModelsAdapter(private val listener: OnModelItemListener?) :
-    ListAdapter<SomeModel, RecyclerView.ViewHolder>(ModelDiffCallback()) {
+class FriendAdapter(private val listener: OnModelItemListener?) :
+    ListAdapter<FriendModel, RecyclerView.ViewHolder>(FriendDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ListItemBinding.inflate(
@@ -16,13 +16,13 @@ class ModelsAdapter(private val listener: OnModelItemListener?) :
                 parent.context
             ), parent, false
         )
-        return ModelViewHolder(binding)
+        return FriendViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = currentList[position]
         when (holder) {
-            is ModelViewHolder -> {
+            is FriendViewHolder -> {
                 holder.bind(item, listener)
             }
         }
@@ -34,7 +34,7 @@ class ModelsAdapter(private val listener: OnModelItemListener?) :
         payloads: MutableList<Any>
     ) {
         when (holder) {
-            is ModelViewHolder -> {
+            is FriendViewHolder -> {
                 val item = currentList[position]
                 if (payloads.isEmpty()) {
                     holder.bind(item, listener)
@@ -42,13 +42,13 @@ class ModelsAdapter(private val listener: OnModelItemListener?) :
                 }
 
                 payloads.forEach {
-                    val payloadList: List<ModelDiffCallback.ChangePayload> = it as List<ModelDiffCallback.ChangePayload>
+                    val payloadList: List<FriendDiffCallback.ChangePayload> = it as List<FriendDiffCallback.ChangePayload>
                     payloadList.forEach { currentPayload ->
                         when (currentPayload) {
-                            ModelDiffCallback.ChangePayload.NAME -> {
+                            FriendDiffCallback.ChangePayload.NAME -> {
                                 item.name?.let { name -> holder.updateName(name) }
                             }
-                            ModelDiffCallback.ChangePayload.ALL -> {
+                            FriendDiffCallback.ChangePayload.ALL -> {
                                 holder.bind(item, listener)
                             }
                         }
@@ -61,7 +61,7 @@ class ModelsAdapter(private val listener: OnModelItemListener?) :
     interface OnModelItemListener {
         fun onModelItemClicked(
             binding: ListItemBinding,
-            model: SomeModel
+            model: FriendModel
         )
     }
 }

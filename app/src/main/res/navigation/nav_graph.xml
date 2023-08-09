@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/modelsFragment"
-        android:name="com.example.app.ui.models.ModelsFragment"
+        android:name="com.example.app.ui.friends.FriendFragment"
         android:label="ModelsFragment"
         tools:layout="@layout/fragment_list">
         <action
@@ -27,11 +27,11 @@
 
     <fragment
         android:id="@+id/modelsDetailFragment"
-        android:name="com.example.app.ui.modelsdetails.ModelDetailsFragment"
+        android:name="com.example.app.ui.friendconversation.ChatFragment"
         android:label="CatDetailFragment"
         tools:layout="@layout/fragment_item_detail">
         <argument
-            app:argType="com.example.app.models.SomeModel"
+            app:argType="com.example.app.models.FriendModel"
             android:name="model"/>
     </fragment>
 </navigation>

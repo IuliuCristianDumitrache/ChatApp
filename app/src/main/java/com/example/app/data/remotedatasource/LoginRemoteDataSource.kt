@@ -15,5 +15,5 @@ class LoginRemoteDataSource @Inject constructor(
     fun loginUser(email: String, password: String): Observable<LoginResponse> =
         Observable.fromCallable {
                 return@fromCallable LoginResponse(accessToken = "Bearer tmngjfsf2e3Fn")
-            }.delay(1, TimeUnit.SECONDS)
+            }.delay(600, TimeUnit.MILLISECONDS)
 }

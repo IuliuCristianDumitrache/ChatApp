@@ -3,11 +3,11 @@ package com.example.app.data
 import androidx.room.*
 
 @Dao
-interface ModelDao {
+interface FriendDao {
     @Query("SELECT * FROM DEFAULT_MODEL")
-    suspend fun getAllModels(): List<ModelEntity>
+    fun getAllFriends(): List<FriendEntity>
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(model: ModelEntity)
+    fun insert(model: FriendEntity)
 }
