@@ -18,18 +18,18 @@
     <fragment
         android:id="@+id/modelsFragment"
         android:name="com.example.app.ui.friends.FriendFragment"
-        android:label="ModelsFragment"
+        android:label="FriendFragment"
         tools:layout="@layout/fragment_list">
         <action
-            android:id="@+id/action_modelsFragment_to_modelsDetailFragment"
-            app:destination="@id/modelsDetailFragment"/>
+            android:id="@+id/action_modelsFragment_to_chatFragment"
+            app:destination="@id/chatFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/modelsDetailFragment"
+        android:id="@+id/chatFragment"
         android:name="com.example.app.ui.friendconversation.ChatFragment"
-        android:label="CatDetailFragment"
-        tools:layout="@layout/fragment_item_detail">
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat">
         <argument
             app:argType="com.example.app.models.FriendModel"
             android:name="model"/>

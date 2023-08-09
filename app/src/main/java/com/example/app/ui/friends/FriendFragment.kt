@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app.R
 import com.example.app.databinding.FragmentListBinding
-import com.example.app.databinding.ListItemBinding
+import com.example.app.databinding.FriendItemBinding
 import com.example.app.extensions.disposeIfNotAlready
 import com.example.app.extensions.navigateSafely
 import com.example.app.extensions.observe
@@ -32,7 +32,6 @@ class FriendFragment : Fragment(), FriendAdapter.OnModelItemListener {
     private val viewModel: FriendViewModel by viewModels()
     private var views: FragmentListBinding? = null
     private val friendAdapter = FriendAdapter(this)
-    private lateinit var searchView: SearchView
 
     private var reloadSubscriber: Disposable? = null
 
@@ -50,8 +49,11 @@ class FriendFragment : Fragment(), FriendAdapter.OnModelItemListener {
 
         initRecyclerView()
 
-        observe(viewModel.friendList) { listOfCats ->
-            friendAdapter.submitList(listOfCats)
+        observe(viewModel.friendList) { listOfFriends ->
+            friendAdapter.submitList(listOfFriends)
+            if (listOfFriends.isNotEmpty()) {
+                views?.recyclerView?.scrollToPosition(listOfFriends.size - 1)
+            }
         }
 
         observe(viewModel.showProgress) { showProgress ->
@@ -93,8 +95,8 @@ class FriendFragment : Fragment(), FriendAdapter.OnModelItemListener {
 
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(context)
-        views?.rvModels?.layoutManager = linearLayoutManager
-        views?.rvModels?.adapter = friendAdapter
+        views?.recyclerView?.layoutManager = linearLayoutManager
+        views?.recyclerView?.adapter = friendAdapter
     }
 
     override fun onDestroy() {
@@ -102,13 +104,13 @@ class FriendFragment : Fragment(), FriendAdapter.OnModelItemListener {
         super.onDestroy()
     }
 
-    override fun onModelItemClicked(binding: ListItemBinding, model: FriendModel) {
+    override fun onFriendItemClicked(binding: FriendItemBinding, model: FriendModel) {
         val extras = FragmentNavigatorExtras(
             binding.tvName to getString(R.string.name_transition),
             binding.root to getString(R.string.root_transition)
         )
 
-        val modelDirection = FriendFragmentDirections.actionModelsFragmentToModelsDetailFragment(
+        val modelDirection = FriendFragmentDirections.actionModelsFragmentToChatFragment(
             model = model
         )
         findNavController().navigateSafely(

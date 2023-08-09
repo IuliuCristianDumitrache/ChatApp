@@ -5,44 +5,53 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app.R
-import com.example.app.databinding.FragmentItemDetailBinding
+import com.example.app.databinding.FragmentChatBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
 
-    private var views: FragmentItemDetailBinding? = null
+    private val viewModel: ChatViewModel by activityViewModels()
+
+    private var views: FragmentChatBinding? = null
 
     private val args by navArgs<ChatFragmentArgs>()
+
+    private lateinit var chatAdapter: ChatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_item_detail, container, false)
+        return inflater.inflate(R.layout.fragment_chat, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        views = FragmentItemDetailBinding.bind(view)
+        views = FragmentChatBinding.bind(view)
 
         initUi()
         initListeners()
+        observeLiveData()
+        viewModel.fetchHistory(args.model.id)
     }
 
     private fun initListeners() {
-        views?.btnClose?.setOnClickListener {
-            popBackStack()
-        }
-    }
+        val friendId = args.model.id
+        val friendName = args.model.name
 
-    private fun popBackStack() {
-        findNavController().popBackStack()
+        views?.sendMessageButton?.setOnClickListener {
+            viewModel.sendMessage(friendId, friendName, views?.editTextMessage?.text.toString())
+            views?.editTextMessage?.setText("")
+        }
     }
 
     private fun initUi() {
@@ -52,6 +61,27 @@ class ChatFragment : Fragment() {
         sharedElementEnterTransition = animation
         sharedElementReturnTransition = animation
 
+        views?.btnClose?.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         views?.tvName?.text = args.model.name
+
+        chatAdapter = ChatAdapter()
+
+        views?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        views?.recyclerView?.adapter = chatAdapter
+    }
+
+    private fun observeLiveData() {
+        viewModel.chatLiveData.observe(this) {
+            chatAdapter.submitList(it)
+            chatAdapter.notifyDataSetChanged()
+            views?.recyclerView?.scrollToPosition(it.size - 1)
+        }
+
+        viewModel.isFriendTyping.observe(this) {
+            views?.isFriendTypingTextView?.isVisible = it
+        }
     }
 }

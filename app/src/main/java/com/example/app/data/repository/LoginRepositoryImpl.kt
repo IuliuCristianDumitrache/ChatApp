@@ -2,7 +2,7 @@ package com.example.app.data.repository
 
 import com.example.app.data.SessionManager
 import com.example.app.models.LoginResponse
-import com.example.app.data.remotedatasource.LoginRemoteDataSource
+import com.example.app.data.datasource.LoginRemoteDataSource
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 import javax.inject.Singleton

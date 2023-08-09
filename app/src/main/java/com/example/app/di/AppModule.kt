@@ -7,11 +7,14 @@ import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.app.data.AppDatabase
+import com.example.app.data.ChatDao
 import com.example.app.data.FriendDao
 import com.example.app.data.SessionManager
-import com.example.app.data.remotedatasource.FriendRemoteDataSource
-import com.example.app.data.remotedatasource.LoginRemoteDataSource
-import com.example.app.data.remotedatasource.FriendLocalDataSource
+import com.example.app.data.datasource.ChatLocalDataSource
+import com.example.app.data.datasource.FriendRemoteDataSource
+import com.example.app.data.datasource.LoginRemoteDataSource
+import com.example.app.data.datasource.FriendLocalDataSource
+import com.example.app.data.repository.ChatRepositoryImpl
 import com.example.app.data.repository.LoginRepositoryImpl
 import com.example.app.data.repository.FriendRepositoryImpl
 import com.example.app.network.ApiFactory
@@ -45,7 +48,12 @@ object AppModule {
 
     @Provides
     fun provideModelDao(appDatabase: AppDatabase): FriendDao {
-        return appDatabase.modelDao()
+        return appDatabase.friendDao()
+    }
+
+    @Provides
+    fun provideChatDao(appDatabase: AppDatabase): ChatDao {
+        return appDatabase.chatDao()
     }
 
     @Provides
@@ -80,6 +88,13 @@ object AppModule {
     }
 
     @Provides
+    fun provideChatLocalDataSource(
+        chatDao: ChatDao
+    ): ChatLocalDataSource {
+        return ChatLocalDataSource(chatDao)
+    }
+
+    @Provides
     fun provideLoginRepository(loginRemoteDataSource: LoginRemoteDataSource, sessionManager: SessionManager): LoginRepositoryImpl {
         return LoginRepositoryImpl(loginRemoteDataSource, sessionManager)
     }
@@ -89,6 +104,10 @@ object AppModule {
         return FriendRepositoryImpl(friendRemoteDataSource, friendLocalDataSource)
     }
 
+    @Provides
+    fun provideChatRepository(chatLocalDataSource: ChatLocalDataSource): ChatRepositoryImpl {
+        return ChatRepositoryImpl(chatLocalDataSource)
+    }
     @Provides
     fun provideSessionManager(@ApplicationContext context: Context): SessionManager {
         return SessionManager(provideSharedPreferences(context))

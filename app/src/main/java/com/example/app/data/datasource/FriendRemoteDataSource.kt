@@ -1,4 +1,4 @@
-package com.example.app.data.remotedatasource
+package com.example.app.data.datasource
 
 import com.example.app.models.FriendModel
 import com.example.app.network.ApiService

@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.databinding.ListItemBinding
+import com.example.app.databinding.FriendItemBinding
 import com.example.app.models.FriendModel
 
 class FriendAdapter(private val listener: OnModelItemListener?) :
     ListAdapter<FriendModel, RecyclerView.ViewHolder>(FriendDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ListItemBinding.inflate(
+        val binding = FriendItemBinding.inflate(
             LayoutInflater.from(
                 parent.context
             ), parent, false
@@ -59,8 +59,8 @@ class FriendAdapter(private val listener: OnModelItemListener?) :
     }
 
     interface OnModelItemListener {
-        fun onModelItemClicked(
-            binding: ListItemBinding,
+        fun onFriendItemClicked(
+            binding: FriendItemBinding,
             model: FriendModel
         )
     }

@@ -1,7 +1,7 @@
 package com.example.app.data.repository
 
-import com.example.app.data.remotedatasource.FriendLocalDataSource
-import com.example.app.data.remotedatasource.FriendRemoteDataSource
+import com.example.app.data.datasource.FriendLocalDataSource
+import com.example.app.data.datasource.FriendRemoteDataSource
 import com.example.app.models.FriendModel
 import javax.inject.Inject
 import javax.inject.Singleton
